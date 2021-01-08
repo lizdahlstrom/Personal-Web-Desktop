@@ -1,0 +1,18 @@
+.wiki-finder {
+  width: 62vh;
+  height: 50vh;
+}
+
+.wiki-input {
+  margin-left: 2em;
+  width: 20rem;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.wiki-finder h1 {
+  margin: 0;
+}
+

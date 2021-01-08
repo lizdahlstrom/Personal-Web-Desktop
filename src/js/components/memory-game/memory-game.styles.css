@@ -1,0 +1,58 @@
+.memory-game {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  grid-template-columns: 1;
+  width: 36vh;
+  min-height: 43vh;
+  height: auto;
+}
+
+.memory-game > .cards {
+  display: inline-grid;
+  /* padding: 0.5em; */
+  align-self: center;
+  max-height: 50vh;
+  margin-top: 0.5rem;
+}
+
+.memory-game .removed {
+  visibility: hidden;
+}
+
+.memory-game .winning-message {
+  align-self: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.memory-game .play-again-btn {
+  background-color: var(--secondary-color, yellow);
+  color: black;
+  border: none;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 0.9em;
+  border-radius: 4px;
+}
+
+.card-type-selector {
+  display: grid;
+  padding-bottom: 1em;
+}
+
+.winning-message > h2 {
+  margin-bottom: 0;
+}
+
+.winning-message > p {
+  font-size: small;
+  margin: 0;
+  padding-bottom: 1em;
+}
+
+.winning-message button:disabled {
+  opacity: 0.55; 
+}

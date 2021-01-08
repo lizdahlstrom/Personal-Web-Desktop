@@ -1,0 +1,11 @@
+#desktop {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  display: flex;
+  background: url(../../../image/bg.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}

@@ -1,0 +1,7 @@
+.chat-message {
+  font-size: 0.2
+}
+
+.author {
+  color: var(--secondary-color, yellow);
+}

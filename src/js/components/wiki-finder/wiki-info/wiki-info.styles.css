@@ -1,0 +1,11 @@
+.wiki-link {
+  padding-top: 1em;
+}
+
+.wiki-info > h1 {
+  color: var(--secondary-color, yellow);
+}
+
+.wiki-info {
+  padding: 1em 2em;
+}

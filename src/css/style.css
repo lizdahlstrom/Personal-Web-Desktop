@@ -1,0 +1,33 @@
+html, body {
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+  font-family: 'Hind Siliguri', sans-serif;
+}
+
+/* Variables to use for a coherent UI */
+:root {
+  --primary-color: #543864;
+  --primary-light: #816392;
+  --primary-dark: #2a1139;
+  --secondary-color: #ffbd69;
+  --secondary-light: #ffef99;
+  --secondary-dark: #c98d3b;
+  --dark: #121212;
+}
+
+/* visited/unvisited link */
+a:link, a:visited {
+  color: var(--secondary-color);
+  text-decoration: none;
+}
+
+/* mouse over link */
+a:hover {
+  color: var(--secondary-light);
+}
+
+/* selected link */
+a:active {
+  color: var(--secondary-dark);
+}

@@ -1,0 +1,14 @@
+{
+  "presets": [
+    [
+        "@babel/preset-env",
+        {
+            "targets": {
+                "chrome": 74
+            }
+        }
+    ],
+    
+    "@babel/preset-react"
+]
+}

@@ -1,0 +1,37 @@
+.desktop-window {
+  overflow: hidden;
+  border-radius: 0.2em;
+  border: 0.1px solid slategray;
+  background-color: var(--dark, black);
+  color: #e8f0ff;
+  /* max-width: 60em; */
+}
+
+.desktop-window .window-component {
+  padding: 1em;
+  overflow-y: auto;
+}
+
+.window-bar {
+  display: flex;
+  background-color: var(--primary-color, #392759);
+  color: #e8f0ff;
+  height: 1.7em;
+  align-items: center;
+  justify-items: center;
+  width: 100%;
+  padding: 0.1em 0;
+}
+
+.window-bar > *  {
+ margin: 0.3em;
+}
+
+.window-close-btn {
+  border-radius: 0.3em;
+  margin-left: auto;
+}
+
+.window-component {
+
+}

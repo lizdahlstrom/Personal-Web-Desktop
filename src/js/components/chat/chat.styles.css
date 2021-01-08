@@ -1,0 +1,77 @@
+.chat-component {
+  display: flex;
+  height: 55vh;
+  border-radius: 2px;
+  background-color: rgb(255, 255, 255, 0.2);
+}
+
+.chat {
+  padding: 0.6em;
+  position: relative;
+  width: 48vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat .message-box {
+  flex-grow: 1;
+  overflow: auto;
+}
+
+.chat .chat-message {
+  padding-bottom: 0.3em;
+}
+
+.chat .chat-input {
+  margin: auto;
+  width: 100%;
+  align-self: flex-end;
+  display: flex;
+}
+
+.chat-input textarea {
+  resize: none;
+  width: 100%;
+  align-self: center;
+}
+
+.chat-component .username-input {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  /* height: 30em; */
+  /* padding: 2em; */
+  justify-self: center;
+  align-items: center;
+}
+
+.username-input input {
+  width: 20em;
+}
+
+.chat .timestamp {
+  font-size: small;
+  color: rgb(255, 255, 255, 0.6);
+  padding-left: 1em;
+} 
+
+.chat-root .top {
+  padding-bottom: 0.5em;
+  font-size: 0.8em;
+  display: flex;
+  align-items: right;
+  color: grey;
+}
+
+.username {
+  font-weight: 500;
+  color: green;
+}
+
+.edit-icon {
+  font-size: small;
+  justify-self: center;
+  height: 1.1em;
+  width: 1.1em;
+  padding-left: 0.5em;
+}
