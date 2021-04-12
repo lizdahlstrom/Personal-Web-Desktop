@@ -2,8 +2,42 @@ import React, { useState, useEffect } from 'react'
 import MemoryCard from './memory-card/memory-card.component.jsx'
 import './memory-game.styles.css'
 
-const IMG_PATH = '../../../image/memory'
 const MAX_CARDS = 8
+
+/**
+   * Imports all images
+   */
+const importAllImages = (context) => {
+  return context.keys().map(context)
+}
+
+const lnuImages = importAllImages(
+  require.context('../../../image/memory', false, /\.(png|jpe?g|svg)$/)
+)
+
+const catImages = importAllImages(
+  require.context(
+    '../../../image/memory/robohash/cat',
+    false,
+    /\.(png|jpe?g|svg)$/
+  )
+)
+
+const monsterImages = importAllImages(
+  require.context(
+    '../../../image/memory/robohash/monster',
+    false,
+    /\.(png|jpe?g|svg)$/
+  )
+)
+
+const robotImages = importAllImages(
+  require.context(
+    '../../../image/memory/robohash/monster',
+    false,
+    /\.(png|jpe?g|svg)$/
+  )
+)
 
 /**
  * Memory game component, play a game of max 16 cards (8 pairs)
@@ -20,49 +54,10 @@ const MemoryGame = ({ rows = 4, columns = 4 }) => {
   const [cardType, setCardType] = useState('')
   const [secondCard, setSecondCard] = useState(null)
 
-  /**
-   * Imports all images
-   */
-  const importAllImages = (context) => {
-    return context.keys().map(context)
-  }
-
-  const lnuImages = importAllImages(
-    require.context('../../../image/memory', false, /\.(png|jpe?g|svg)$/)
-  )
-
-  const catImages = importAllImages(
-    require.context(
-      '../../../image/memory/robohash/cat',
-      false,
-      /\.(png|jpe?g|svg)$/
-    )
-  )
-
-  const monsterImages = importAllImages(
-    require.context(
-      '../../../image/memory/robohash/monster',
-      false,
-      /\.(png|jpe?g|svg)$/
-    )
-  )
-
-  const robotImages = importAllImages(
-    require.context(
-      '../../../image/memory/robohash/monster',
-      false,
-      /\.(png|jpe?g|svg)$/
-    )
-  )
-
   // called when component mounts
   useEffect(() => {
     startGame(rows, columns)
   }, [])
-
-  useEffect(() => {
-    console.log(lnuImages)
-  }, [cardType])
 
   /**
    * Get the image path of corresponding id
