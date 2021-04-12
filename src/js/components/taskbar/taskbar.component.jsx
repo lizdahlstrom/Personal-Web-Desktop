@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import './taskbar.styles.css'
+import memoryIcon from '../../../image/games-icon.svg'
+import chatIcon from '../../../image/chat-icon.svg'
+import wikiIcon from '../../../image/wiki-icon.svg'
 
 const apps =
   [
-    { name: 'memory', icon: '../../../image/games-icon.svg' },
-    { name: 'chat', icon: '../../../image/chat-icon.svg' },
-    { name: 'wiki-finder', icon: '../../../image/wiki-icon.svg' }
+    { name: 'memory', icon: memoryIcon },
+    { name: 'chat', icon: chatIcon },
+    { name: 'wiki-finder', icon: wikiIcon }
   ]
 
 const Taskbar = ({ addWindow }) => {

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import MemoryCard from './memory-card/memory-card.component.jsx'
 import './memory-game.styles.css'
 
-const IMG_PATH = '../../../image'
+const IMG_PATH = '../../../image/memory'
 const MAX_CARDS = 8
 
 /**
@@ -20,10 +20,49 @@ const MemoryGame = ({ rows = 4, columns = 4 }) => {
   const [cardType, setCardType] = useState('')
   const [secondCard, setSecondCard] = useState(null)
 
+  /**
+   * Imports all images
+   */
+  const importAllImages = (context) => {
+    return context.keys().map(context)
+  }
+
+  const lnuImages = importAllImages(
+    require.context('../../../image/memory', false, /\.(png|jpe?g|svg)$/)
+  )
+
+  const catImages = importAllImages(
+    require.context(
+      '../../../image/memory/robohash/cat',
+      false,
+      /\.(png|jpe?g|svg)$/
+    )
+  )
+
+  const monsterImages = importAllImages(
+    require.context(
+      '../../../image/memory/robohash/monster',
+      false,
+      /\.(png|jpe?g|svg)$/
+    )
+  )
+
+  const robotImages = importAllImages(
+    require.context(
+      '../../../image/memory/robohash/monster',
+      false,
+      /\.(png|jpe?g|svg)$/
+    )
+  )
+
   // called when component mounts
   useEffect(() => {
     startGame(rows, columns)
   }, [])
+
+  useEffect(() => {
+    console.log(lnuImages)
+  }, [cardType])
 
   /**
    * Get the image path of corresponding id
@@ -39,14 +78,18 @@ const MemoryGame = ({ rows = 4, columns = 4 }) => {
     let path
 
     if (cardType === 'lnu' || id === 0) {
-      path = `${IMG_PATH}/${id}.png`
-    } else if (cardType === 'cat' || cardType === 'monster' || cardType === 'robot') {
-      path = `${IMG_PATH}/robohash/${cardType}${id}.png`
+      path = lnuImages[id]
+    } else if (cardType === 'cat') {
+      path = catImages[id - 1]
+    } else if (cardType === 'monster') {
+      path = monsterImages[id - 1]
+    } else if (cardType === 'robot') {
+      path = robotImages[id - 1]
     } else {
       throw new Error('Cannot get image path, invalid card type')
     }
 
-    return path
+    return path.default
   }
 
   /**
@@ -57,8 +100,8 @@ const MemoryGame = ({ rows = 4, columns = 4 }) => {
    */
   const startGame = (rows, columns) => {
     const cardCount = rows * columns
-    if (cardCount > MAX_CARDS * 2) throw new Error('There are not enough cards for that size of game')
-    if (cardCount % 2 !== 0) throw new Error('Cannot create a game with an uneven number of cards')
+    if (cardCount > MAX_CARDS * 2) { throw new Error('There are not enough cards for that size of game') }
+    if (cardCount % 2 !== 0) { throw new Error('Cannot create a game with an uneven number of cards') }
 
     let newCards = _generateCards(cardCount)
     newCards = _shuffle(newCards)
@@ -91,7 +134,7 @@ const MemoryGame = ({ rows = 4, columns = 4 }) => {
       if (firstCard.getAttribute('pair-id') === pairId) {
         setPairs(pairs + 1)
 
-        if (pairs + 1 === (cards.length / 2)) {
+        if (pairs + 1 === cards.length / 2) {
           _win()
         }
 
@@ -160,7 +203,8 @@ const MemoryGame = ({ rows = 4, columns = 4 }) => {
    * @param {Event} e
    */
   const _handleCardClick = (e) => {
-    const img = e.target.nodeName === 'IMG' ? e.target : e.target.firstElementChild
+    const img =
+      e.target.nodeName === 'IMG' ? e.target : e.target.firstElementChild
     const pairId = img.getAttribute('pair-id')
 
     if (!pairId) return
@@ -196,49 +240,60 @@ const MemoryGame = ({ rows = 4, columns = 4 }) => {
       </div>
       {won ? (
         <div className='winning-message'>
-          <h2>{triesCount > 0 ? `You won with ${triesCount} tries!` : 'Start a new game!'}</h2>
+          <h2>
+            {triesCount > 0
+              ? `You won with ${triesCount} tries!`
+              : 'Start a new game!'}
+          </h2>
           <p>Select card type below</p>
           <div className='card-type-selector' onChange={_handleCardSelect}>
             <span>
-              <input
-                type='radio' id='lnu'
-                name='cardType' value='lnu'
-              />
+              <input type='radio' id='lnu' name='cardType' value='lnu' />
               <label htmlFor='lnu'>LNU</label>
             </span>
             <span>
-              <input
-                type='radio' id='cat'
-                name='cardType' value='cat'
-              />
+              <input type='radio' id='cat' name='cardType' value='cat' />
               <label htmlFor='cat'>Cats (by robohash)</label>
             </span>
             <span>
               <input
-                type='radio' id='monster'
-                name='cardType' value='monster'
+                type='radio'
+                id='monster'
+                name='cardType'
+                value='monster'
               />
               <label htmlFor='monster'>Monsters (by robohash)</label>
             </span>
             <span>
-              <input
-                type='radio' id='robot'
-                name='cardType' value='robot'
-              />
+              <input type='radio' id='robot' name='cardType' value='robot' />
               <label htmlFor='robot'>Robots (by robohash)</label>
             </span>
           </div>
-          <button className='play-again-btn' disabled={!cardType} onClick={_handlePlayAgain}>{triesCount > 0 ? 'Play again' : 'Play'}</button>
+          <button
+            className='play-again-btn'
+            disabled={!cardType}
+            onClick={_handlePlayAgain}
+          >
+            {triesCount > 0 ? 'Play again' : 'Play'}
+          </button>
         </div>
-      )
-        : (
-          <div className='cards' style={{ gridTemplateColumns: `repeat(${columns}, auto [col-start]` }} onClick={_handleCardClick}>
-            {cards.length > 0 ? cards.map((card, i) =>
-              <MemoryCard key={`card-${i}-${card.id}`} pairId={card.id} imgUrl={card.imgUrl} />
-            )
-              : ''}
-          </div>
-        )}
+      ) : (
+        <div
+          className='cards'
+          style={{ gridTemplateColumns: `repeat(${columns}, auto [col-start]` }}
+          onClick={_handleCardClick}
+        >
+          {cards.length > 0
+            ? cards.map((card, i) => (
+              <MemoryCard
+                key={`card-${i}-${card.id}`}
+                pairId={card.id}
+                imgUrl={card.imgUrl}
+              />
+            ))
+            : ''}
+        </div>
+      )}
     </div>
   )
 }

@@ -9,7 +9,7 @@ import './chat-message.styles.css'
  */
 const ChatMessage = ({ author, timestamp, message }) => {
   return (
-    <div className='chat-message'>
+    <div className='chat-message' draggable='true'>
       <div>
         <span className='author'>{author}</span>
         <span className='timestamp'>{timestamp}</span>

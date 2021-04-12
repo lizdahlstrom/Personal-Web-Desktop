@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import ChatMessage from './chat-message/chat-message.component.jsx'
 import './chat.styles.css'
+import editIcon from '../../../image/edit-icon.svg'
 const API_KEY = 'eDBE76deU7L0H9mEBgxUKVR0VCnq0XBd' // could be put in .env file
 const API_URL = ' ws://vhost3.lnu.se:20080/socket/'
 
@@ -12,8 +13,9 @@ const API_URL = ' ws://vhost3.lnu.se:20080/socket/'
 const Chat = () => {
   const [messages, setMessages] = useState([])
   const socket = new window.WebSocket(API_URL, 'charcords')
-  const [chatUsername, setChatUsername] = useState(window.localStorage.getItem('chatUsername') || '')
-  const editIcon = '../../../image/edit-icon.svg'
+  const [chatUsername, setChatUsername] = useState(
+    window.localStorage.getItem('chatUsername') || ''
+  )
 
   /**
    * Sends a message to the server
@@ -39,7 +41,7 @@ const Chat = () => {
    * @param {Object} messageObj
    */
   const _addMessage = (messageObj) => {
-    setMessages(messages => [...messages, messageObj])
+    setMessages((messages) => [...messages, messageObj])
   }
 
   /**
@@ -120,32 +122,48 @@ const Chat = () => {
 
   return (
     <div className='chat-root'>
-      {chatUsername
-        ? (
-          <div className='top'>
-            <div>Welcome <span className='username'>{chatUsername}</span></div>
-            <a href='#' onClick={_handleEdit}> <img className='edit-icon' src={editIcon} />
-            </a>
+      {chatUsername ? (
+        <div className='top'>
+          <div>
+            Welcome <span className='username'>{chatUsername}</span>
           </div>
-        ) : ''}
+          <a href='#' onClick={_handleEdit}>
+            {' '}
+            <img className='edit-icon' src={editIcon} />
+          </a>
+        </div>
+      ) : (
+        ''
+      )}
       <div className='chat-component'>
-        {chatUsername
-          ? (
-            <div className='chat'>
-              <div className='message-box'>
-                {messages.length > 0 ? messages.map((message, i) => <ChatMessage key={i} author={message.username} timestamp={message.timestamp} message={message.data} />) : ''}
-              </div>
-              <div className='chat-input'>
-                <textarea onKeyDown={_handleChatInput} />
-              </div>
+        {chatUsername ? (
+          <div className='chat'>
+            <div className='message-box'>
+              {messages.length > 0
+                ? messages.map((message, i) => (
+                  <ChatMessage
+                    key={i}
+                    author={message.username}
+                    timestamp={message.timestamp}
+                    message={message.data}
+                  />
+                ))
+                : ''}
             </div>
-          )
-          : (
-            <div className='username-input chat'>
-              <h2>Input your username</h2>
-              <input type='text' placeholder='Name' onKeyDown={_handleNameInput} />
+            <div className='chat-input'>
+              <textarea onKeyDown={_handleChatInput} />
             </div>
-          )}
+          </div>
+        ) : (
+          <div className='username-input chat'>
+            <h2>Input your username</h2>
+            <input
+              type='text'
+              placeholder='Name'
+              onKeyDown={_handleNameInput}
+            />
+          </div>
+        )}
       </div>
     </div>
   )

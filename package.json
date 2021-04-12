@@ -51,7 +51,7 @@
   "bin": {},
   "scripts": {
     "debug": "webpack-dev-server",
-    "start": "webpack-dev-server",
+    "start": "webpack serve",
     "build": "webpack"
   }
 }
